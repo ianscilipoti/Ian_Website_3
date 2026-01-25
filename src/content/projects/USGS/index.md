@@ -15,4 +15,4 @@ The USGS stream gauge ID paradigm is based on the relative position of a potenti
 
 The completion of this tool allowed the USGS to reduce time spent on ID calculation from the order of full days down to seconds.
 
-![Full City](interface.png "Adonnis interface for the USGS.")
+![Full City](Interface.png "Adonnis interface for the USGS.")

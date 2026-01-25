@@ -1,0 +1,189 @@
+---
+import { getCollection } from 'astro:content';
+import ArrowIcon from '../content/icons/arrow.svg?raw';
+
+export interface Props {
+  projectId: string;
+  variant?: 'default' | 'featured';
+}
+
+const { projectId, variant = 'default' } = Astro.props;
+
+// Fetch the project by projectId
+const projects = await getCollection('projects');
+const project = projects.find(p => p.data.projectId === projectId);
+
+if (!project) {
+  throw new Error(`Project with projectId "${projectId}" not found`);
+}
+
+const { title, description, color = 'blue', date, previewImg } = project.data;
+const href = `/projects/${project.id}`;
+const image = previewImg?.src;
+---
+
+<a href={href} class={`content-card content-card--${color}`}>
+  <!-- content-card--${variant} -->
+  <div class="content-card__info">
+    <div class="content-card__header">
+      <h3 class="content-card__title">{title}</h3>
+      <span class="content-card__date">{date}</span>
+    </div>
+    {description && (
+      <p class="content-card__description">{description}</p>
+    )}
+  </div>
+
+  {image && (
+    <div class={`content-card__image`}>
+      {/* content-card__image--${variant} */}
+      <img src={image} alt={title} />
+    </div>
+  )}
+</a>
+
+<style lang="scss">
+  @use '../styles/global.scss' as *;
+
+  .content-card {
+    display: flex;
+    gap: var(--margin-medium);
+    align-items: flex-start;
+    padding: var(--margin-medium);
+    border-radius: $standard-radius;
+
+    // min-height: 200px;
+
+    transition: outline 0.2s ease, box-shadow 0.2s ease;
+    outline-style: solid;
+    outline-width: 0px;
+
+    align-items: stretch;
+
+
+    &:hover {
+      // transform: translateY(-2px);
+      // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      outline-width: $standard-stroke-width*2;
+    }
+
+    &--purple {
+      background-color: $color-purple-primary;
+      outline-color: $color-green-primary;
+    }
+
+    &--green {
+      background-color: $color-green-primary;
+      outline-color: $color-purple-primary;
+    }
+
+    &--blue {
+      background-color: $color-blue-primary;
+      outline-color: $color-purple-primary;
+    }
+
+    &--orange {
+      background-color: $color-orange-primary;
+      outline-color: $color-blue-primary;
+    }
+
+    &--featured {
+      padding: var(--margin-large);
+      gap: var(--margin-large);
+
+      .content-card__info {
+        justify-content: center;
+        text-align: center;
+        padding-bottom: 0;
+      }
+
+      .content-card__header {
+        align-items: center;
+      }
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--margin-small);
+      padding-bottom: var(--margin-small);
+      justify-content: flex-start;
+      flex: 1;
+    }
+
+    &__header {
+      display:flex;
+      flex-direction: column;
+    }
+
+    &__title {
+      font-family: $font-stylized;
+      font-size: var(--font-project-card-title);
+      font-weight: normal;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    &__date {
+      font-family: $font-standard-body;
+      font-size: var(--font-project-card-body);
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &__description {
+      font-family: $font-standard-body;
+      font-size: var(--font-project-card-body);
+      font-weight: 300;
+      color: $color-text-muted-more;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    &__image {
+      flex: 1;
+      // aspect-ratio: 1 / 1;
+      min-width: 0;
+      border-radius: $image-radius;
+      overflow: hidden;
+      // position: relative;
+
+      img {
+        // position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &--featured {
+        aspect-ratio: 3/2;
+      }
+    }
+  }
+
+  @media (max-width: #{$breakpoint-mobile}) {
+    .content-card {
+      // flex-direction: column;
+      min-height: auto;
+
+      &__left {
+        min-height: auto;
+        width: 100%;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      &__button {
+        width: 100%;
+      }
+
+      &__image {
+        width: 100%;
+        // aspect-ratio: 16 / 9;
+        border-radius: $round-radius;
+      }
+    }
+  }
+</style>

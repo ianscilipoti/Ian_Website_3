@@ -1,0 +1,539 @@
+// Global SCSS file
+
+// MARGIN / PADDING (base values for CSS custom properties)
+$margin-small: 10px;
+$margin-medium: 20px;
+$margin-large: 40px;
+$section-gap: 80px;
+
+// Mobile margins (half of desktop)
+$margin-small-mobile: 5px;
+$margin-medium-mobile: 10px;
+$margin-large-mobile: 20px;
+$section-gap-mobile: 40px;
+
+// BORDER RADIUS
+$standard-radius: 16px;
+$round-radius: 25px;
+$image-radius: 55px;
+
+// STROKE
+$standard-stroke-width: 4px;
+$small-stroke-width: 2px;
+
+// COLORS
+$color-white: white;
+$color-off-white: #fefffeaa;
+
+$color-purple-primary: #fac7ff;
+$color-green-primary: #aef8aa;
+$color-blue-primary: #9be1fc;
+$color-orange-primary: #ffcf9e;
+
+$color-black: black;
+$color-text-muted: rgba(0, 0, 0, 0.75);
+$color-text-muted-more: rgba(0, 0, 0, 0.5);
+
+// FONTS
+$font-stylized: 'Alice', serif;
+$font-standard-body: 'Alexandria', sans-serif;
+
+$font-size-body: 1rem;
+$font-size-header: 2rem;
+$font-size-sub-title: 2.5rem;
+$font-size-title: 3rem;
+
+$font-size-body-mobile: 1rem;
+$font-size-header-mobile: 2rem;
+$font-size-sub-title-mobile: 2.5rem;
+$font-size-title-mobile: 3rem;
+
+// SIZING
+$max-width: 1200px;
+
+// BREAKPOINTS
+$breakpoint-mobile: 800px;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  // Font sizes
+  --font-size-body: #{$font-size-body};
+  --font-size-header: #{$font-size-header};
+  --font-size-title: #{$font-size-title};
+  --font-size-sub-title: #{$font-size-sub-title};
+
+  --font-project-card-title: #{min($font-size-header, 3vw)};
+  --font-project-card-body: #{min($font-size-body, 1.5vw)};
+
+  // Margins
+  --margin-small: #{$margin-small};
+  --margin-medium: #{$margin-medium};
+  --margin-large: #{$margin-large};
+  --section-gap: #{$section-gap};
+
+  @media (max-width: #{$breakpoint-mobile}) {
+    --font-size-body: #{$font-size-body-mobile};
+    --font-size-header: #{$font-size-header-mobile};
+    --font-size-title: #{$font-size-title-mobile};
+
+    --font-project-card-title: #{min($font-size-header, 6vw)};
+    --font-project-card-body: #{min($font-size-body, 4vw)};
+
+    --margin-small: #{$margin-small-mobile};
+    --margin-medium: #{$margin-medium-mobile};
+    --margin-large: #{$margin-large-mobile};
+    --section-gap: #{$section-gap-mobile};
+  }
+}
+
+html {
+  font-family: $font-standard-body;
+  background-color: $color-off-white;
+  color: #0a0a0a;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  line-height: 1.3;
+  font-size: var(--font-size-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Homepage Layout
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+// Top Fold Section
+.top-fold {
+  position: relative;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: visible;
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+    align-items: center;
+    padding-bottom: var(--section-gap);
+    width: 100%;
+  }
+}
+
+// Page Header
+.page-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--margin-medium);
+
+  &__title {
+    font-family: $font-stylized;
+    font-size: var(--font-size-title);
+    font-weight: normal;
+    color: $color-black;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+// About Section
+.about {
+  display: flex;
+  gap: var(--margin-large);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-small);
+  }
+
+  &__title {
+    font-family: $font-stylized;
+    font-size: var(--font-size-header);
+    font-weight: normal;
+    margin: 0;
+    color: $color-black;
+  }
+
+  &__text {
+    font-family: $font-standard-body;
+    font-weight: 300;
+    font-size: var(--font-size-body);
+    line-height: 1.3;
+    color: $color-text-muted;
+
+    p {
+      margin: 0 0 1em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__headshot-wrapper {
+    position: relative;
+    width: 360px;
+    height: 362px;
+    flex-shrink: 0;
+  }
+
+  &__headshot-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: $standard-radius;
+    transform: rotate(0deg);
+
+    &--1 {
+      background-color: $color-orange-primary;
+    }
+
+    &--2 {
+      background-color: $color-purple-primary;
+    }
+
+    &--3 {
+      background-color: $color-blue-primary;
+    }
+
+    &--4 {
+      background-color: $color-green-primary;
+    }
+  }
+
+  // Trigger rotation animations when parent becomes visible
+  &__headshot-wrapper.visible &__headshot-bg {
+    &--1 {
+      animation: rotate-to-16 0.5s ease-out forwards;
+    }
+
+    &--2 {
+      animation: rotate-to-12 0.5s ease-out forwards;
+    }
+
+    &--3 {
+      animation: rotate-to-8 0.5s ease-out forwards;
+    }
+
+    &--4 {
+      animation: rotate-to-4 0.5s ease-out forwards;
+    }
+  }
+
+  @keyframes rotate-to-16 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(16deg); }
+  }
+
+  @keyframes rotate-to-12 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(12deg); }
+  }
+
+  @keyframes rotate-to-8 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(8deg); }
+  }
+
+  @keyframes rotate-to-4 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(4deg); }
+  }
+
+  &__headshot {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: $standard-radius;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+// Contact Section
+.contact {
+  display: flex;
+  gap: var(--margin-large);
+  align-items: center;
+
+  &__links {
+    display: flex;
+    gap: var(--margin-large);
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    color: $color-black;
+    transition: opacity 0.2s ease;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      stroke-width: $standard-stroke-width;
+    }
+
+    // &:hover {
+    //   opacity: 0.7;
+    // }
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--margin-small);
+    height: 61px;
+    padding: var(--margin-medium) 27px;
+    border: $standard-stroke-width solid $color-black;
+    border-radius: $standard-radius;
+    background: transparent;
+    font-family: $font-stylized;
+    font-size: 18px;
+    color: $color-black;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+
+
+    svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: $small-stroke-width;
+    }
+  }
+}
+
+// Projects Section
+.projects {
+  background-color: $color-white;
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-large);
+  align-items: center;
+  width: 100%;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__title {
+    font-family: $font-stylized;
+    font-size: var(--font-size-sub-title);
+    font-weight: normal;
+    color: $color-black;
+    margin: 0;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  &__subhead {
+    font-family: $font-stylized;
+    font-size: var(--font-size-header);
+    font-weight: normal;
+    color: $color-text-muted-more;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--margin-large);
+    width: 100%;
+    padding-bottom: var(--section-gap);
+
+    > * {
+      flex: 0 1 calc(50% - var(--margin-large) / 2);
+
+      // Ensure nested content cards fill their wrapper
+      > .content-card {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+// Project Placeholder Cards (for right column)
+.project-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  border-radius: $standard-radius;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &--tall {
+    height: 401px;
+  }
+
+  &--purple {
+    background-color: $color-purple-primary;
+  }
+
+  &--blue {
+    background-color: $color-blue-primary;
+  }
+
+  &__title {
+    font-family: $font-stylized;
+    font-size: var(--font-size-header);
+    color: $color-black;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover &__title {
+    opacity: 1;
+  }
+}
+
+// Content styles (for project/portfolio detail pages)
+.content {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font-stylized;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.3;
+    font-weight: normal;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  img {
+    border-radius: $standard-radius;
+    margin: 1em 0;
+  }
+}
+
+// Responsive
+@media (max-width: #{$breakpoint-mobile}) {
+  .top-fold {
+    gap: var(--margin-large);
+    padding-bottom: var(--margin-large);
+
+    &__content {
+      gap: var(--margin-large);
+    }
+  }
+
+  .about {
+    flex-direction: column-reverse;
+    text-align: center;
+
+    &__headshot-wrapper {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  .contact {
+    &__icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    &__button {
+      font-size: var(--font-size-body);
+      padding: var(--margin-small) var(--margin-medium);
+      height: auto;
+    }
+  }
+
+  .projects {
+    &__grid {
+      > * {
+        flex: 0 1 100%;
+      }
+    }
+  }
+
+  .project-placeholder {
+    min-height: 150px;
+
+    &--tall {
+      height: auto;
+      min-height: 200px;
+    }
+  }
+}
+
+// Fade-in animation for scroll reveal
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+// Staggered delay for grid items
+@for $i from 1 through 20 {
+  .fade-in-delay-#{$i} {
+    transition-delay: #{$i * 0.05}s;
+  }
+}

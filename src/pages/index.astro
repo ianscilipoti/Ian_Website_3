@@ -1,0 +1,150 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Content from '../components/Content.astro';
+import AnimatedBackground from '../components/AnimatedBackground.astro';
+import Headshot from '../content/images/headshot.jpg';
+
+// Import icons as raw SVG strings
+import GithubIcon from '../content/icons/github.svg?raw';
+import InstagramIcon from '../content/icons/instagram.svg?raw';
+import LinkedinIcon from '../content/icons/linkedin.svg?raw';
+import ArrowIcon from '../content/icons/arrow.svg?raw';
+---
+
+<BaseLayout title="Ian Scilipoti">
+  <main class="homepage">
+    <Container>
+      <!-- Top Fold Section -->
+      <section class="top-fold">
+        <!-- <AnimatedBackground /> -->
+        <div class="top-fold__content">
+          <!-- Header -->
+          <div class="page-header">
+            <h1 class="page-header__title">Ian Scilipoti</h1>
+          </div>
+
+          <!-- About Section -->
+          <section class="about">
+            <div class="about__content">
+              <h2 class="about__title fade-in fade-in-delay-1">About me</h2>
+              <div class="about__text fade-in fade-in-delay-2">
+                <p>I am a purpose driven and versatile software developer with experience working closely with non-technical collaborators. My expertise is in 3D graphics and creative projects.</p>
+                <p>I began working freelance when I was 13 years old, and have since worked on projects like Mario Kart Live, scientific software for the USGS, and creative technology initiatives for Fortune 500 brands.</p>
+                <p>At Flywheel, I lead prototyping and technology development efforts for AT&T. My experience has given me broad exposure to the design, UX, product research, and business of digital product development.</p>
+              </div>
+            </div>
+            <div class="about__headshot-wrapper fade-in fade-in-delay-3">
+              <div class="about__headshot-bg about__headshot-bg--1"></div>
+              <div class="about__headshot-bg about__headshot-bg--2"></div>
+              <div class="about__headshot-bg about__headshot-bg--3"></div>
+              <div class="about__headshot-bg about__headshot-bg--4"></div>
+              <div class="about__headshot">
+                <Image src={Headshot} alt="Ian Scilipoti Headshot" />
+              </div>
+            </div>
+          </section>
+
+          <!-- Contact Section -->
+          <section class="contact fade-in fade-in-delay-4">
+            <div class="contact__links">
+              <a href="https://github.com/ianscilipoti" class="contact__icon" aria-label="GitHub" target="_blank" rel="noopener">
+                <Fragment set:html={GithubIcon} />
+              </a>
+              <a href="https://instagram.com/ianscilipoti" class="contact__icon" aria-label="Instagram" target="_blank" rel="noopener">
+                <Fragment set:html={InstagramIcon} />
+              </a>
+              <a href="https://linkedin.com/in/ianscilipoti" class="contact__icon" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <Fragment set:html={LinkedinIcon} />
+              </a>
+            </div>
+            <a href="mailto:ianscilipoti@gmail.com" class="contact__button">
+              <span>Contact Me</span>
+              <Fragment set:html={ArrowIcon} />
+            </a>
+          </section>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section class="projects">
+        <div class="projects__header fade-in fade-in-delay-5">
+          <h2 class="projects__title">Creative Technology</h2>
+        </div>
+
+        <div class="projects__grid">
+          <div class="fade-in fade-in-delay-6"><Content projectId="TPN_Creative_Technology" variant="featured"/></div>
+          <div class="fade-in fade-in-delay-7"><Content projectId="Music_Projector" /></div>
+          <div class="fade-in fade-in-delay-8"><Content projectId="VR_Sculpting" /></div>
+          <div class="fade-in fade-in-delay-9"><Content projectId="Painter" /></div>
+        </div>
+
+        <div class="projects__header fade-in fade-in-delay-10">
+          <h2 class="projects__title">Software Engineering</h2>
+        </div>
+
+        <div class="projects__grid">
+          <div class="fade-in fade-in-delay-11"><Content projectId="Poetic" /></div>
+          <div class="fade-in fade-in-delay-12"><Content projectId="ADONNIS" /></div>
+          <div class="fade-in fade-in-delay-13"><Content projectId="Velan_Studios" /></div>
+          <div class="fade-in fade-in-delay-14"><Content projectId="Cities" /></div>
+        </div>
+
+        <div class="projects__header fade-in fade-in-delay-15">
+          <h2 class="projects__title">3D Projects</h2>
+        </div>
+
+        <div class="projects__grid">
+          <div class="fade-in fade-in-delay-16"><Content projectId="Generative_Art"/></div>
+          <div class="fade-in fade-in-delay-17"><Content projectId="Terrain_Engine" /></div>
+          <div class="fade-in fade-in-delay-18"><Content projectId="2D_Lighting_Engine" /></div>
+          <div class="fade-in fade-in-delay-19"><Content projectId="Special_Effects" /></div>
+        </div>
+      </section>
+    </Container>
+  </main>
+</BaseLayout>
+
+<script>
+  const fadeElements = document.querySelectorAll('.fade-in');
+
+  // On initial load, trigger elements in viewport with their delays
+  // For elements outside viewport, remove delay classes so they animate immediately when scrolled to
+  const initializeElements = () => {
+    fadeElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const inInitialViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+      if (inInitialViewport) {
+        // Element is in initial viewport - trigger with delay
+        el.classList.add('visible');
+      } else {
+        // Element is below fold - remove delay classes for instant animation on scroll
+        el.className = el.className.replace(/fade-in-delay-\d+/g, '').trim();
+      }
+    });
+  };
+
+  // Set up observer for elements that will scroll into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: "0px 0px -10px 0px",
+  });
+
+  // Initialize on load
+  initializeElements();
+
+  // Observe elements that aren't already visible
+  fadeElements.forEach(el => {
+    if (!el.classList.contains('visible')) {
+      observer.observe(el);
+    }
+  });
+</script>

@@ -1,0 +1,151 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/Container.astro';
+import ArrowIcon from '../content/icons/arrow.svg?raw';
+
+
+interface Props {
+  title: string;
+  description?: string;
+  color?: 'purple' | 'green' | 'blue';
+}
+
+const { title, description, color = 'blue' } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class={`project-page project-page--${color}`}>
+    <Container>
+      <header class="project-header">
+        <div class="project-header__row">
+          <a href="/" class="project-header__back">
+            <Fragment set:html={ArrowIcon} />
+          </a>
+
+          <h1 class="project-header__title">{title}</h1>
+        </div>
+        <span class="project-header__author">Ian Scilipoti</span>
+      </header>
+
+      <main class="project-main">
+        <article class="project-content content">
+          <slot />
+        </article>
+        <a href="/" class="project-main__back">&larr; Home</a>
+      </main>
+    </Container>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  @use '../styles/global.scss' as *;
+
+  @keyframes slide-in-padding {
+    from {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    to {
+      padding-left: var(--margin-medium);
+      padding-right: var(--margin-medium);
+    }
+  }
+
+  .project-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--margin-medium);
+    padding-left: var(--margin-medium);
+    padding-right: var(--margin-medium);
+    // animation: slide-in-padding 0.4s ease-out;
+
+    &--purple {
+      background-color: $color-purple-primary;
+    }
+
+    &--green {
+      background-color: $color-green-primary;
+    }
+
+    &--blue {
+      background-color: $color-blue-primary;
+    }
+
+    &--orange {
+      background-color: $color-orange-primary;
+    }
+  }
+
+  .project-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--margin-large) 0px;
+    gap: var(--margin-small);
+
+    &__row {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    &__back {
+      position: absolute;
+      left: 0;
+      font-family: $font-stylized;
+      font-size: var(--font-size-body);
+      color: $color-black;
+      text-decoration: none;
+      stroke-width: 2.5px;
+      width:20px;
+      transform:rotate(180deg);
+      // padding: $margin-small;
+      // border-style: solid;
+      // border-width: 2.5px;
+    }
+
+    &__title {
+      font-family: $font-stylized;
+      font-size: var(--font-size-header);
+      font-weight: normal;
+      margin: 0;
+      color: $color-black;
+      text-align: center;
+    }
+
+    @media (max-width: #{$breakpoint-mobile}) {
+      &__title {
+        font-size: min(var(--font-size-header), 5vw);
+      }
+    }
+
+    &__author {
+      font-family: $font-stylized;
+      font-size: var(--font-size-body);
+      color: $color-text-muted-more;
+    }
+  }
+
+  .project-main {
+    flex: 1;
+    // padding: 0px var(--margin-large);
+    display: flex;
+    flex-direction: column;
+
+    &__back {
+      font-family: $font-stylized;
+      font-size: var(--font-size-header);
+      color: $color-black;
+      text-decoration: none;
+      padding-bottom: var(--margin-medium);
+      margin: 0 auto;
+    }
+  }
+
+  .project-content {
+    padding: var(--margin-large) 0;
+  }
+</style>

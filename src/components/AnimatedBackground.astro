@@ -1,0 +1,67 @@
+---
+// AnimatedBackground - Three.js gradient mesh animation
+// Renders behind the top fold content
+---
+
+<div id="animated-bg" class="animated-background"></div>
+
+<script>
+  import { initScene } from './three/BackgroundScene';
+
+  // Initialize on DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('animated-bg');
+    if (container) {
+      initScene(container);
+    }
+  });
+</script>
+
+<style lang="scss">
+  @use '../styles/global.scss' as *;
+
+  .animated-background {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+
+    canvas {
+      display: block;
+    }
+
+    // Fallback gradient for no WebGL or reduced motion
+    &--fallback {
+      background: linear-gradient(
+        135deg,
+        rgba($color-purple-primary, 0.15) 0%,
+        rgba($color-green-primary, 0.1) 50%,
+        rgba($color-blue-primary, 0.15) 100%
+      );
+      animation: gradientShift 20s ease-in-out infinite;
+    }
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  // Respect reduced motion preference
+  @media (prefers-reduced-motion: reduce) {
+    .animated-background {
+      &--fallback {
+        animation: none;
+      }
+    }
+  }
+</style>

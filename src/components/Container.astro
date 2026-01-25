@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={['container', className]}>
+  <slot />
+</div>
+
+<style lang="scss">
+  @use '../styles/global.scss' as *;
+
+  .container {
+    width: 100%;
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0 var(--margin-large);
+    background-color: white;
+
+    min-height:100vh;
+  }
+</style>

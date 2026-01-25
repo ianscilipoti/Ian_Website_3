@@ -1,7 +1,7 @@
 ---
 projectId: Velan_Studios
 title: Velan Studios
-description: Game engine development internship working on MarioKart Live and Knockout City.
+description: Game engine development supporting MarioKart Live and Knockout City
 previewImg: preview.jpeg
 skills: [C, Game Engine Development, Game Development]
 order: 3

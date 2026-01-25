@@ -1,7 +1,7 @@
 ---
 projectId: Terrain_Engine
 title: Terrain Engine
-description: A procedural terrain generator and low poly terrain engine built in C# using Delaunary triangulation.
+description: A procedural low-poly terrain engine using Delaunary triangulation
 previewImg: preview.png
 previewVideo: preview.mp4
 skills: [Procedural Worlds, Geology Simulation, Algorithms, LOD Control]

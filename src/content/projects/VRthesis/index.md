@@ -1,7 +1,7 @@
 ---
 projectId: VR_Sculpting
 title: VR Sculpting
-description: VR terrain sculpting user interface and user study for thesis research.
+description: VR terrain sculpting user interface and user study for thesis research
 previewImg: preview.png
 skills: [Interaction Design, VR, User Study]
 order: 5
@@ -16,7 +16,7 @@ Interface A was based on a concept of traditional 3D sculpting software such as 
 
 In contrast, interface B is based on a concept of sandbox/beach play that we may be familiar with from our vacations and childhoods. In this model, terrain volume is conserved, so to form a mountain, a valley must also be created. Material on the terrain has to be pushed and maneuvered from one place to another. 
 
-<a href="/files/Report.pdf"> View the Full Paper</a>
+<a href="/Report.pdf" style="text-decoration: underline;"> View the Full Paper</a>
 
 <div style="padding:65.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/642488539?h=eaa72d400a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Thesis Project Video.mp4"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 

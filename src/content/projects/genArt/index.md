@@ -1,7 +1,7 @@
 ---
 projectId: Generative_Art
 title: Generative Art
-description: Procedurally generated art I made while exploring geometry nodes and 3D rendering.
+description: Procedurally generated art using Blender geometry nodes
 previewImg: preview1.jpeg
 previewVideo: preview.mp4
 skills: [Node Based Systems, 3D Rendering, Procedural Content]

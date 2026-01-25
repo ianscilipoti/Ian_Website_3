@@ -1,7 +1,7 @@
 ---
 projectId: Music_Projector
 title: Music Projector
-description: Real-time audio projection prototyped with Arduino, copper wire, and audio ICs.
+description: Audio visualization using water cymatics
 previewImg: preview.png
 previewVideo: preview.mp4
 skills: [Physical Prototyping, A/V, Circuit Design]

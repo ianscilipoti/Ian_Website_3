@@ -1,7 +1,7 @@
 ---
 projectId: 2D_Lighting_Engine
 title: 2D Lighting Engine
-description: Mesh based 2D lighting engine for an infinite cave exploration game.
+description: Mesh based 2D lighting engine for an infinite cave exploration game
 previewImg: preview.png
 previewVideo: preview.mp4
 skills: [Algorithms, Mesh Generation, Real-Time]

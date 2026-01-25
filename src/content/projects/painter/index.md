@@ -1,7 +1,7 @@
 ---
 projectId: Painter
 title: Painter
-description: An automatic painting algorithm using simulated brush strokes.
+description: An automatic painting algorithm using simulated brush strokes
 previewImg: preview.png
 skills: [Simulation, Generative Art, Processing]
 order: 8

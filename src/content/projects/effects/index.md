@@ -1,7 +1,7 @@
 ---
 projectId: Special_Effects
 title: Special Effects
-description: Special effects I have released on the Unity3D Asset Store.
+description: Special effects released on the Unity3D Asset Store
 previewImg: preview.jpeg
 skills: [Particle Systems, GLSL, Fluid Simulation, 3D Modeling, Product Marketing]
 order: 5

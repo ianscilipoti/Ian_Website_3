@@ -1,7 +1,7 @@
 ---
 projectId: ADONNIS
 title: ADONNIS
-description: An greenfield internal tool built for the USGS stream gauge network.
+description: An greenfield internal tool built for the USGS stream gauge network
 previewImg: preview.jpeg
 skills: [Python, GIS, Data Processing, Algorithm Design]
 order: 3

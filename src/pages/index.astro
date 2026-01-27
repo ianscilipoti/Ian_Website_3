@@ -74,7 +74,7 @@ import ArrowIcon from '../content/icons/arrow.svg?raw';
         </div>
 
         <div class="projects__grid">
-          <div class="fade-in fade-in-delay-5"><Content projectId="VR_Lighting" /></div>
+          <div class="fade-in fade-in-delay-5"><Content projectId="musicVR" /></div>
           <div class="fade-in fade-in-delay-6"><Content projectId="TPN_Creative_Technology" variant="featured"/></div>
           <div class="fade-in fade-in-delay-7"><Content projectId="Music_Projector" /></div>
           <div class="fade-in fade-in-delay-8"><Content projectId="VR_Sculpting" /></div>
@@ -108,44 +108,54 @@ import ArrowIcon from '../content/icons/arrow.svg?raw';
 </BaseLayout>
 
 <script>
-  const fadeElements = document.querySelectorAll('.fade-in');
+  function setupFadeAnimations() {
+    const fadeElements = document.querySelectorAll('.fade-in');
 
-  // On initial load, trigger elements in viewport with their delays
-  // For elements outside viewport, remove delay classes so they animate immediately when scrolled to
-  const initializeElements = () => {
+    // Reset elements for re-animation
     fadeElements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      const inInitialViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      el.classList.remove('visible');
+    });
 
-      if (inInitialViewport) {
-        // Element is in initial viewport - trigger with delay
-        el.classList.add('visible');
-      } else {
-        // Element is below fold - remove delay classes for instant animation on scroll
-        el.className = el.className.replace(/fade-in-delay-\d+/g, '').trim();
+    // On initial load, trigger elements in viewport with their delays
+    // For elements outside viewport, remove delay classes so they animate immediately when scrolled to
+    const initializeElements = () => {
+      fadeElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const inInitialViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (inInitialViewport) {
+          // Element is in initial viewport - trigger with delay
+          el.classList.add('visible');
+        } else {
+          // Element is below fold - remove delay classes for instant animation on scroll
+          el.className = el.className.replace(/fade-in-delay-\d+/g, '').trim();
+        }
+      });
+    };
+
+    // Set up observer for elements that will scroll into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: "0px 0px -10px 0px",
+    });
+
+    // Initialize on load
+    initializeElements();
+
+    // Observe elements that aren't already visible
+    fadeElements.forEach(el => {
+      if (!el.classList.contains('visible')) {
+        observer.observe(el);
       }
     });
-  };
+  }
 
-  // Set up observer for elements that will scroll into view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: "0px 0px -10px 0px",
-  });
-
-  // Initialize on load
-  initializeElements();
-
-  // Observe elements that aren't already visible
-  fadeElements.forEach(el => {
-    if (!el.classList.contains('visible')) {
-      observer.observe(el);
-    }
-  });
+  // Run on initial load and after each client-side navigation
+  document.addEventListener('astro:page-load', setupFadeAnimations);
 </script>

@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  maxHeight?: string;
+}
+
+const { src, alt, maxHeight } = Astro.props;
+---
+
+<div class="project-image" style={maxHeight ? `--max-height: ${maxHeight}` : undefined}>
+  <Image src={src} alt={alt} />
+</div>
+
+<style lang="scss">
+  @use '../styles/global.scss' as *;
+
+  .project-image {
+    width: 100%;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: auto;
+    max-height: var(--max-height, none);
+    object-fit: cover;
+    border-radius: $standard-radius;
+  }
+</style>

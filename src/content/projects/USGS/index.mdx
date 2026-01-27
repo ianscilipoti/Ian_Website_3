@@ -4,10 +4,11 @@ title: ADONNIS
 description: An greenfield internal tool built for the USGS stream gauge network
 previewImg: preview.jpeg
 skills: [Python, GIS, Data Processing, Algorithm Design]
-order: 3
 color: blue
 date: 2020
 ---
+import ProjectImage from '../../../components/ProjectImage.astro';
+import interfaceImg from './Interface.png';
 
 I developed ADONNIS (Automated Downstream Order Naming Numbering Identification System) in a 6 month contract with the USGS. ADONNIS is an internal facing tool designed to automate the task of creating ID numbers for new nation-wide installations of USGS stream gauges.
 
@@ -15,4 +16,4 @@ The USGS stream gauge ID paradigm is based on the relative position of a potenti
 
 The completion of this tool allowed the USGS to reduce time spent on ID calculation from the order of full days down to seconds.
 
-![Full City](Interface.png "Adonnis interface for the USGS.")
+<ProjectImage src={interfaceImg} alt="Adonnis interface for the USGS." />

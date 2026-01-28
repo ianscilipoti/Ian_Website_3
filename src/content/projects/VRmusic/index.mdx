@@ -18,3 +18,5 @@ I've been partnering with Telepresent Media to develop a VR live music platform.
 Here is a sneak peak of the stage lighting system I recently finished:
 
 <ProjectImage src={previewImg} alt="Stage Lighting System" />
+
+This lighitng effect was built in Unity under the URP pipeline. Because our target device is the Oculus Quest, care had to be taken to insure performance. Several tricks are employed here to help with that including baking information into vertex colors, minimizing materials, and using custom shaders to create the appearance of volumentric rendering. 

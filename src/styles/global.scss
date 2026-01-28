@@ -534,7 +534,7 @@ img {
 
 
 // Staggered delay for grid items
-@for $i from 1 through 20 {
+@for $i from 1 through 25 {
   .fade-in-delay-#{$i} {
     transition-delay: #{$i * 0.05}s;
   }

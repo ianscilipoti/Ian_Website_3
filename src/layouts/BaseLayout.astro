@@ -19,7 +19,7 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/new_favicon.svg" />
     {description && <meta name="description" content={description} />}
     <title>{title}</title>
-    <!-- <ClientRouter /> -->
+    <ClientRouter />
   </head>
   <body>
     <slot />

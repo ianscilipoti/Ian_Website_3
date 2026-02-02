@@ -1,7 +1,7 @@
 ---
 projectId: Terrain_Engine
 title: Terrain Engine
-description: A procedural low-poly terrain engine using Delaunary triangulation
+description: A procedural low-poly terrain engine using Delaunay triangulation
 previewImg: preview.png
 previewVideo: preview.mp4
 skills: [Procedural Worlds, Geology Simulation, Algorithms, LOD Control]
@@ -35,7 +35,7 @@ Lakes and rivers are placed after the initial elevation data is generated. Both 
 
 For lakes, this validation means ensuring that the lake has a shoreline that is contained within a maximum size limit.
 
-For rivers, a path to the ocean must be found. If a potential path is too complex or involves too much uphill travel, the seed is thrown out. The path is searched via an A* path finding algorithm. The heuristic of the search is the find a path requiring the least uphill travel. Once this path is identified, the terrain must be carved to ensure that the river never flows uphill. As a side benefit, this leads to the development river valleys!
+For rivers, a path to the ocean must be found. If a potential path is too complex or involves too much uphill travel, the seed is thrown out. The path is searched via an A* path finding algorithm. The heuristic of the search is to find a path requiring the least uphill travel. Once this path is identified, the terrain must be carved to ensure that the river never flows uphill. As a side benefit, this leads to the development of river valleys!
 
 <ProjectImage src={mountainriverImg} alt="A river flowing through a mountain land zone" />
 

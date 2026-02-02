@@ -5,13 +5,15 @@ interface Props {
   src: ImageMetadata;
   alt: string;
   maxHeight?: string;
+  description?: string;
 }
 
-const { src, alt, maxHeight } = Astro.props;
+const { src, alt, maxHeight, description } = Astro.props;
 ---
 
 <div class="project-image" style={maxHeight ? `--max-height: ${maxHeight}` : undefined}>
   <Image src={src} alt={alt} />
+  {description && <p class="project-image__description">{description}</p>}
 </div>
 
 <style lang="scss">
@@ -27,5 +29,13 @@ const { src, alt, maxHeight } = Astro.props;
     max-height: var(--max-height, none);
     object-fit: cover;
     border-radius: $standard-radius;
+    margin-bottom: 0px;
+  }
+
+  .project-image__description {
+    margin: 0;
+    font-family: $font-standard-body;
+    font-size: var(--font-size-body);
+    color: $color-text-muted-more;
   }
 </style>

@@ -10,7 +10,7 @@ const projects = defineCollection({
     previewImg: image().optional(),
     skills: z.array(z.string()).optional(),
     color: z.enum(['purple', 'green', 'blue', 'orange']).optional(),
-    date: z.number().optional()
+    date: z.string().optional()
   }),
 });
 

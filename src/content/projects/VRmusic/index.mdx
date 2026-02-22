@@ -1,11 +1,11 @@
 ---
 projectId: musicVR
-title: VR Live Music
-description: Working on Club Aloha, a VR platform for live music
+title: Live Music in VR
+description: Collaborating with Telepresent Media building a community focused platform for live music
 previewImg: preview.png
 skills: [Visual FX, UX Design, Creative]
 color: purple
-date: 2026
+date: "2025 - current"
 ---
 import ProjectImage from '../../../components/ProjectImage.astro';
 import previewImg from './preview.png';
@@ -13,10 +13,26 @@ import previewImg from './preview.png';
 Overview
 ---
 
-I've been partnering with Telepresent Media to develop a VR live music platform. I'll update this page as the project develops. My current contributions are in visual FX, creative, and UX design for the platform.
+I've always loved music. I began playing piano when I was 8 years old and have since explored a few different instruments as well as music production software. In 2024, I joined a band as a keyboardist and began playing live in clubs in Manhattan and various bars and venues in upstate NY.
 
-Here is a sneak peek of the stage lighting system I recently finished:
+There is something about playing music live that is very singular. When the energy of the band and audience connect in real-time, something greater than the sum of its parts can occur.
 
-<ProjectImage src={previewImg} alt="Stage Lighting System" />
+I am a core member of a small startup with a mission to faithfully and caringly bring the live music experience to life in VR. My collaborators and I share a vision that VR telepresence can recreate the magic of live music and enable diverse communities of music enjoyers to flourish. Our project is built in Unity3D. 
 
-This lighting effect was built in Unity under the URP pipeline. Because our target device is the Oculus Quest, care had to be taken to ensure performance. Several tricks are employed here to help with that including baking information into vertex colors, minimizing materials, and using custom shaders to create the appearance of volumetric rendering. 
+My Contributions
+----
+
+My efforts so far are focused on visuals and design of the user experience. My priorities are as follows:
+* **Telepresence:** Communication between band and the audience and the audience to itself is essential. 
+* **Immersion:** The visual experience should be immersive and lifelike, with opportunities to get lost in subtle details of the environment. 
+* **Flow:** From when a user first signs on, to when they join the show, every step should feel natural and obvious. 
+
+The first project I'll share with you is the stage lighting system seen below. The work consisted of creating 3D models, HLSL shaders, and a lighting control system written in C#. Given the processing limitations of Oculus VR headsets, I explored various optimization techniques. 
+
+The core structure of the light beam effect is a cone-shaped 3D model. To give the cone a volumetric appearance, the dot product of the view angle and the mesh normals are used as the alpha channel in the shader. This causes the light cone to fade out towards the edges. I use noise texture with a time-based offset on the UV coordinates to simulate the effect of stage-smoke rising through the light beam. 
+
+To optimize the effect, I aimed to reduce the math and texture lookups to a minimum. I encoded key data for the effect into the vertex colors of the cone mesh and packed multiple textures into one using the texture color channels. To minimize the effect of overdraw, a common issue for transparent rendering, I enabled back-face culling in the shader and minimize the size of the light beam mesh on-screen. The result is a convincing volumetric rendering effect fit for performance on the Oculus Quest 2+. 
+
+To switch between lighting scenes, I implemented a control script which will allow a lighting designer to control the stage lighting in real-time. For now, the lighting can be switched between multiple predefined "scenes". Each scene consists of the color and intensity for each light. These scenes can be smoothly faded between using Unity's coroutine system. 
+
+<ProjectImage maxHeight='500px' src={previewImg} alt="Stage Lighting System" />

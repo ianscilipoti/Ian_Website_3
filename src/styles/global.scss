@@ -368,7 +368,7 @@ img {
 
   &__title {
     font-family: $font-stylized;
-    font-size: var(--font-size-sub-title);
+    font-size: var(--font-size-header);
     font-weight: normal;
     color: $color-black;
     margin: 0;
@@ -378,7 +378,7 @@ img {
 
   &__subhead {
     font-family: $font-stylized;
-    font-size: var(--font-size-header);
+    font-size: var(--font-size-body);
     font-weight: normal;
     color: $color-text-muted-more;
     margin: 0;

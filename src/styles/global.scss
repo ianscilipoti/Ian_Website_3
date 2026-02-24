@@ -40,6 +40,7 @@ $font-standard-body: 'Alexandria', sans-serif;
 
 $font-size-body: 1rem;
 $font-size-header: 2rem;
+$font-size-header-2: 1.5rem;
 $font-size-sub-title: 2.5rem;
 $font-size-title: 3rem;
 
@@ -67,7 +68,7 @@ $breakpoint-mobile: 800px;
   --font-size-title: #{$font-size-title};
   --font-size-sub-title: #{$font-size-sub-title};
 
-  --font-project-card-title: #{min($font-size-header, 3vw)};
+  --font-project-card-title: #{min($font-size-header-2, 3vw)};
   --font-project-card-body: #{min($font-size-body, 1.5vw)};
 
   // Margins
@@ -81,7 +82,7 @@ $breakpoint-mobile: 800px;
     --font-size-header: #{$font-size-header-mobile};
     --font-size-title: #{$font-size-title-mobile};
 
-    --font-project-card-title: #{min($font-size-header, 6vw)};
+    --font-project-card-title: #{min($font-size-header-2, 6vw)};
     --font-project-card-body: #{min($font-size-body, 4vw)};
 
     --margin-small: #{$margin-small-mobile};

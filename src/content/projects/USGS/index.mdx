@@ -1,8 +1,8 @@
 ---
 projectId: ADONNIS
 title: USGS Water Science Center
-description: Data pipelines and graph analysis for national datasets. 
-previewImg: preview.jpeg
+description: Data pipelines and graph analysis for national datasets
+previewImg: USGS.png
 skills: [Python, GIS, Data Processing, Algorithm Design]
 color: green
 date: "2020"
@@ -10,10 +10,23 @@ date: "2020"
 import ProjectImage from '../../../components/ProjectImage.astro';
 import interfaceImg from './Interface.png';
 
-I developed ADONNIS (Automated Downstream Order Naming Numbering Identification System) in a 6 month contract with the USGS. ADONNIS is an internal facing tool designed to automate the task of creating ID numbers for new nation-wide installations of USGS stream gauges.
+The United States Geological Survey (USGS) is the science arm of the Department of the Interior. The USGS brings an array of earth, water, biological, and mapping data and expertise to bear in support of decision-making on environmental, resource, and public safety issues.
 
-The USGS stream gauge ID paradigm is based on the relative position of a potential gauge within its drainage basin. The backend of ADONNIS utilized multiple real-world nationwide datasets to perform stream network traversals to discover nearby stream gauges. To accommodate uncertainties in the datasets, the algorithms I developed contained robust error checking and validation systems capable of requesting human verification for critical uncertainties in addition to flagging provable errors in the data.
+Case Study: **ADONNIS**
+===
 
-The completion of this tool allowed the USGS to reduce time spent on ID calculation from the order of full days down to seconds.
+I developed ADONNIS (Automated Downstream Order Naming Numbering Identification System) for the USGS over a six-month contract. ADONNIS is an initiative designed to automate a cumbersome process of generating station identification numbers for the USGS nationwide stream gauge network. 
+
+My role:
+---
+1. Software Engineering.
+
+Accomplishments:
+---
+1. Engineered constraint satisfaction algorithms to validate messy real-world datapoints.
+2. Developed graph traversal algorithms to process stream network data from government databases.  
+3. Built an error detection system capable of generating simple technical descriptions of data inconsistencies and how to fix them. 
+4. Created an interactive frontend using Leaflet to display complex geospatial data and process user queries.  
+5. Successfully automated a complex routine task from multiple days to a matter of seconds. 
 
 <ProjectImage src={interfaceImg} alt="Adonnis interface for the USGS." />

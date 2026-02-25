@@ -11,58 +11,21 @@ date: "2020"
 import ProjectImage from '../../../components/ProjectImage.astro';
 import boxImg from './box.png';
 
-Overview
----
+This music visualizer was a pandemic project. It stemmed from an interest in music and building something in the physical world. The visualizer works by vibrating the surface of water with a DIY speaker coil, and projecting light through the rippled surface. 
 
-The music visualizer was one of my pandemic projects. The project solidified my interest in working with technology in the physical realm in addition to the digital.
+My role:
+---
+1. Circuit design and prototyping. 
+2. Software development for Arduino Uno. 
+3. Physical prototyping with wood, buttons, etc. 
+
+Accomplishments:
+---
+1. Designed a working prototype through a six-month R&D process.
+2. Designed and implemented circuitry using an integrated audio amplifier chip, resistors, capacitors, and Arduino Uno microcontroller. 
+3. Experimented with Fast Fourier Transform algorithms running on Arduino Nano for various reactive lighting features. 
 
 {/* <!-- ![Water Closeup](ColorfulWater.png "RGB LED shining through water surface") --> */}
 <div style="padding:60% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/681061600?h=7920b50a5d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Audio Visualizer Demo"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
-
-Process
----
-The project began simply: I wanted to make an RGB music reactive light source of *some kind*. In the ideation phase, the project took many forms. The internal dialog was something like:
-
-<p style="margin: auto; width:75%;">
-Maybe I'll build a snow globe of sorts that would emit light and react to sound. The light will bounce off of the glitter snow making a cool pattern everywhere. Kind of like that thing I saw at my aunt's house over Christmas!
-</p>
-<p style="margin: auto; width:75%; font-style: italic;">
-What would keep the snow inside moving?
-</p>
-<p style="margin: auto; width:75%;">
-A motor would spin the globe, causing the snow inside to swirl around!
-</p>
-
-<p style="margin: auto; width:75%; font-style: italic;">
-*Sounds like lots of moving parts. Not ideal.*
-</p>
-<p style="margin: auto; width:75%;">
-Maybe something could vibrate the globe, like a speaker but less... audible? How do speakers work?
-</p>
-<p style="margin: auto; width:75%; font-style: italic;">
-These patterns that form in the water when it's vibrated are actually cooler than the original idea! Forget the globe, use a petri dish instead!
-</p>
-
-Something approximately like the above dialog ran in the background of my mind over the course of a few months. After significant experimentation I settled on the following:
-
-Originally, I wanted to make an RGB music reactive light source of *some kind*. After a few months of tinkering with the idea, I settled on the following prototype design:
-
-The Idea
----
-
-**A copper coil sits in a clear dish of water. Like a speaker, an amplified audio signal is pumped through the coil. A magnet sits near the coil causing the coil to vibrate, thus inducing vibration in the water. Under the dish, install a high power LED that will shine through the water surface. Thus, the patterns in the water will be projected on the ceiling.**
-
 <ProjectImage src={boxImg} alt="The project prototype. A coil sitting in a petri dish of water." />
-
-Words cannot describe the sense of excitement and wonder I felt when the first working prototype began projecting the dancing patterns onto my bedroom ceiling. The temptation was to play as many of my favorite songs through the rig as I could think of.
-
-
-
-Each song has a different character through the visualizer. It all depends on how the song was arranged and mixed. Operating the lowest frequencies, the bass and kick drum seem to have the most profound effect on the visualization. I surmised that the high frequency tones (~600 hertz and above) were just too small to make a visual ripple in the water.
-
-Designing this project was a great experience and it only left me wanting to create more work that occupies the physical realm!
-
-
-
-

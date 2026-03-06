@@ -25,10 +25,10 @@ $small-stroke-width: 2px;
 $color-white: white;
 $color-off-white: #fefffeaa;
 
-$color-purple-primary: #fac7ff;
-$color-green-primary: #aef8aa;
-$color-blue-primary: #9be1fc;
-$color-orange-primary: #ffcf9e;
+$color-purple-primary: #fde9ff;
+$color-green-primary: #dbffd9;
+$color-blue-primary: #dcf5ff;
+$color-orange-primary: #ffebd7;
 
 $color-black: black;
 $color-text-muted: rgba(0, 0, 0, 0.75);
@@ -59,6 +59,14 @@ $breakpoint-mobile: 800px;
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Alice';
+  src: url('/fonts/Alice-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {

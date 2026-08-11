@@ -9,29 +9,31 @@
   const PARTICLE_COLOR = '#def8ff';
   // ───────────────────────────────────────────
 
-  const PARTICLE_COUNT = 300;
+  const CANVAS_SIZE    = 128; // internal buffer — scale this up to zoom in/out
+  const PARTICLE_COUNT = 200;
   const CLUSTER_COUNT  = 15;
-  const CLUSTER_SPREAD = 0.5;  // fraction of canvas width per cluster radius
-  const RADIUS_MIN     = 20;
-  const RADIUS_MAX     = 65;
-  const STIFFNESS      = 0.025; // spring pull toward rest position
-  const DAMPING        = 0.97;  // velocity decay per frame (lower = more bounce)
-  const MOUSE_RADIUS   = 300;    // px — how far the mouse influence reaches
-  const REPEL_FORCE    = 0.5;     // strength of mouse push
+  const CLUSTER_SPREAD = 0.5;
+  const RADIUS_MIN     = 2;
+  const RADIUS_MAX     = 6;
+  const STIFFNESS      = 0.35;
+  const DAMPING        = 0.93;
+  const MOUSE_RADIUS   = 27;
+  const REPEL_FORCE    = 0.5;
 
   interface Particle {
     x: number; y: number;
     vx: number; vy: number;
-    rx: number; ry: number; // rest position as 0–1 fraction of canvas
+    rx: number; ry: number;
     r: number;
   }
 
   let particles: Particle[] = [];
   let mouseX = -9999;
   let mouseY = -9999;
-  let canvasRect = new DOMRect();
 
   const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+  canvas.width  = CANVAS_SIZE;
+  canvas.height = CANVAS_SIZE;
   const ctx = canvas.getContext('2d')!;
 
   function createParticles() {
@@ -40,7 +42,6 @@
       cx: 0.05 + Math.random() * 0.9,
       cy: 0.05 + Math.random() * 0.9,
     }));
-
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       const { cx, cy } = centers[i % CLUSTER_COUNT];
       const angle = Math.random() * Math.PI * 2;
@@ -48,8 +49,7 @@
       const rx = Math.max(0.01, Math.min(0.99, cx + Math.cos(angle) * dist));
       const ry = Math.max(0.01, Math.min(0.99, cy + Math.sin(angle) * dist));
       particles.push({
-        x: rx * canvas.width,
-        y: ry * canvas.height,
+        x: rx * CANVAS_SIZE, y: ry * CANVAS_SIZE,
         vx: 0, vy: 0,
         rx, ry,
         r: RADIUS_MIN + Math.random() * (RADIUS_MAX - RADIUS_MIN),
@@ -57,26 +57,11 @@
     }
   }
 
-  function resize() {
-    const r = canvas.getBoundingClientRect();
-    canvasRect = r;
-    canvas.width  = Math.round(r.width);
-    canvas.height = Math.round(r.height);
-    // Snap particles to their rest positions on resize
+function update() {
     for (const p of particles) {
-      p.x = p.rx * canvas.width;
-      p.y = p.ry * canvas.height;
-      p.vx = 0; p.vy = 0;
-    }
-  }
+      p.vx += (p.rx * CANVAS_SIZE - p.x) * STIFFNESS;
+      p.vy += (p.ry * CANVAS_SIZE - p.y) * STIFFNESS;
 
-  function update() {
-    for (const p of particles) {
-      // Spring toward rest
-      p.vx += (p.rx * canvas.width  - p.x) * STIFFNESS;
-      p.vy += (p.ry * canvas.height - p.y) * STIFFNESS;
-
-      // Mouse repulsion
       const dx   = p.x - mouseX;
       const dy   = p.y - mouseY;
       const dist = Math.sqrt(dx * dx + dy * dy);
@@ -94,7 +79,7 @@
   }
 
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     ctx.fillStyle = PARTICLE_COLOR;
     ctx.globalAlpha = 0.65;
     for (const p of particles) {
@@ -105,27 +90,27 @@
     ctx.globalAlpha = 1;
   }
 
-  function loop() {
-    update();
-    draw();
+  const FRAME_MS = 1000 / 30;
+  let lastFrame = 0;
+
+  function loop(ts: number) {
+    if (ts - lastFrame >= FRAME_MS) {
+      update();
+      draw();
+      lastFrame = ts;
+    }
     requestAnimationFrame(loop);
   }
 
-  // Init after layout so getBoundingClientRect is valid
-  const r = canvas.getBoundingClientRect();
-  canvas.width  = Math.round(r.width);
-  canvas.height = Math.round(r.height);
-  canvasRect = r;
   createParticles();
-  requestAnimationFrame(loop);
-
-  window.addEventListener('resize', resize);
-  window.addEventListener('scroll', () => { canvasRect = canvas.getBoundingClientRect(); });
+  requestAnimationFrame(loop as FrameRequestCallback);
 
   if (!window.matchMedia('(pointer: coarse)').matches) {
     window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX - canvasRect.left;
-      mouseY = e.clientY - canvasRect.top;
+      const r = canvas.getBoundingClientRect();
+      const scale = r.width / CANVAS_SIZE;
+      mouseX = (e.clientX - r.left) / scale;
+      mouseY = (e.clientY - r.top)  / scale;
     });
   }
 </script>
@@ -133,14 +118,15 @@
 <style>
   canvas {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    height: 100%;
+    transform: translate(-50%, -50%);
+    width: 100vmax;
+    height: 100vmax;
     z-index: 0;
     pointer-events: none;
-    filter: blur(10px);
+    image-rendering: pixelated;
+    filter: blur(5px);
     mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
   }

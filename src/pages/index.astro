@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/Container.astro';
 import Content from '../components/Content.astro';
-import AnimatedBackground from '../components/AnimatedBackground.astro';
+import ParticleBackground from '../components/ParticleBackground.astro';
 import Headshot from '../content/images/headshot.jpg';
 
 // Import icons as raw SVG strings
@@ -18,7 +18,7 @@ import ArrowIcon from '../content/icons/arrow.svg?raw';
     <Container>
       <!-- Top Fold Section -->
       <section class="top-fold">
-        <!-- <AnimatedBackground /> -->
+        <ParticleBackground />
         <div class="top-fold__content">
           <!-- Header -->
           <div class="page-header">
@@ -70,12 +70,12 @@ import ArrowIcon from '../content/icons/arrow.svg?raw';
       <!-- Projects Section -->
       <section class="projects">
         <div class="projects__header fade-in fade-in-delay-5">
-          <h2 class="projects__title">Case Studies</h2>
+          <h2 class="projects__title">Work Portfolio</h2>
           <p class="projects__subhead">My Contributions, Initiatives, and How I Work</p>
         </div>
 
         <div class="projects__grid">
-          <div class="fade-in fade-in-delay-6"><Content projectId="musicVR" /></div>
+          <!-- <div class="fade-in fade-in-delay-6"><Content projectId="musicVR" /></div> -->
           <div class="fade-in fade-in-delay-7"><Content projectId="TPN_Creative_Technology" variant="featured"/></div>
           <div class="fade-in fade-in-delay-14"><Content projectId="ADONNIS" /></div>
           <div class="fade-in fade-in-delay-15"><Content projectId="Velan_Studios" /></div>
@@ -87,10 +87,10 @@ import ArrowIcon from '../content/icons/arrow.svg?raw';
         </div>
 
         <div class="projects__grid">
-          <div class="fade-in fade-in-delay-12"><Content projectId="Website" /></div>
-          <div class="fade-in fade-in-delay-13"><Content projectId="Poetic" /></div>
+          <!-- <div class="fade-in fade-in-delay-12"><Content projectId="Website" /></div> -->
+          <!-- <div class="fade-in fade-in-delay-13"><Content projectId="Poetic" /></div> -->
           <div class="fade-in fade-in-delay-16"><Content projectId="Cities" /></div>
-          <div class="fade-in fade-in-delay-8"><Content projectId="Music_Projector" /></div>
+          <!-- <div class="fade-in fade-in-delay-8"><Content projectId="Music_Projector" /></div> -->
           <div class="fade-in fade-in-delay-9"><Content projectId="VR_Sculpting" /></div>
           <div class="fade-in fade-in-delay-18"><Content projectId="Generative_Art"/></div>
           <div class="fade-in fade-in-delay-21"><Content projectId="Special_Effects" /></div>

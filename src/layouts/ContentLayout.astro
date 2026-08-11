@@ -60,21 +60,6 @@ const { title, description, color = 'blue' } = Astro.props;
     padding-right: var(--margin-medium);
     // animation: slide-in-padding 0.4s ease-out;
 
-    &--purple {
-      background-color: $color-purple-primary;
-    }
-
-    &--green {
-      background-color: $color-green-primary;
-    }
-
-    &--blue {
-      background-color: $color-blue-primary;
-    }
-
-    &--orange {
-      background-color: $color-orange-primary;
-    }
   }
 
   .project-header {
@@ -100,11 +85,13 @@ const { title, description, color = 'blue' } = Astro.props;
       color: $color-black;
       text-decoration: none;
       stroke-width: 2.5px;
-      width:20px;
-      transform:rotate(180deg);
-      // padding: $margin-small;
-      // border-style: solid;
-      // border-width: 2.5px;
+      width: 20px;
+      transform: rotate(180deg);
+      transition: transform 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+      &:hover {
+        transform: rotate(180deg) scale(1.35);
+      }
     }
 
     &__title {
@@ -131,17 +118,25 @@ const { title, description, color = 'blue' } = Astro.props;
 
   .project-main {
     flex: 1;
-    // padding: 0px var(--margin-large);
     display: flex;
     flex-direction: column;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
 
     &__back {
       font-family: $font-stylized;
       font-size: var(--font-size-header);
       color: $color-black;
       text-decoration: none;
-      padding-bottom: calc(var(--section-gap) * 2);
+      padding: calc(var(--section-gap) * 2) 0;
       margin: 0 auto;
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+      &:hover {
+        transform: scale(1.08);
+      }
     }
   }
 

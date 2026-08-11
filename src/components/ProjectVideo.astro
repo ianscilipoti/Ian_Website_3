@@ -1,0 +1,37 @@
+---
+interface Props {
+  src: string;
+  description?: string;
+}
+
+const { src, description } = Astro.props;
+---
+
+<div class="project-video">
+  <video autoplay muted loop playsinline>
+    <source src={src} type="video/mp4" />
+  </video>
+  {description && <p class="project-video__description">{description}</p>}
+</div>
+
+<style lang="scss">
+  @use '../styles/global.scss' as *;
+
+  .project-video {
+    width: 100%;
+  }
+
+  .project-video video {
+    width: 100%;
+    height: auto;
+    border-radius: $standard-radius;
+    display: block;
+  }
+
+  .project-video__description {
+    margin: 0;
+    font-family: $font-standard-body;
+    font-size: var(--font-size-body);
+    color: $color-text-muted-more;
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+interface Props {
+  gap?: 'small' | 'medium' | 'large';
+}
+
+const { gap = 'large' } = Astro.props;
+---
+
+<div class={`two-column two-column--gap-${gap}`}>
+  <div class="two-column__left">
+    <slot name="left" />
+  </div>
+  <div class="two-column__right">
+    <slot name="right" />
+  </div>
+</div>
+
+<style lang="scss">
+  @use '../styles/global.scss' as *;
+
+  .two-column {
+    display: flex;
+    width: 100%;
+    align-items: start;
+
+    &--gap-small {
+      gap: var(--margin-small);
+    }
+
+    &--gap-medium {
+      gap: var(--margin-medium);
+    }
+
+    &--gap-large {
+      gap: var(--margin-large);
+    }
+
+    &__left,
+    &__right {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  @media (max-width: #{$breakpoint-mobile}) {
+    .two-column {
+      flex-direction: column;
+    }
+  }
+</style>

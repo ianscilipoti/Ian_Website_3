@@ -1,0 +1,147 @@
+---
+// Spring particle background — circles that repel from the mouse and spring back
+---
+
+<canvas id="particle-canvas"></canvas>
+
+<script>
+  // ── Change this to set the particle color ──
+  const PARTICLE_COLOR = '#def8ff';
+  // ───────────────────────────────────────────
+
+  const PARTICLE_COUNT = 300;
+  const CLUSTER_COUNT  = 15;
+  const CLUSTER_SPREAD = 0.5;  // fraction of canvas width per cluster radius
+  const RADIUS_MIN     = 20;
+  const RADIUS_MAX     = 65;
+  const STIFFNESS      = 0.025; // spring pull toward rest position
+  const DAMPING        = 0.97;  // velocity decay per frame (lower = more bounce)
+  const MOUSE_RADIUS   = 300;    // px — how far the mouse influence reaches
+  const REPEL_FORCE    = 0.5;     // strength of mouse push
+
+  interface Particle {
+    x: number; y: number;
+    vx: number; vy: number;
+    rx: number; ry: number; // rest position as 0–1 fraction of canvas
+    r: number;
+  }
+
+  let particles: Particle[] = [];
+  let mouseX = -9999;
+  let mouseY = -9999;
+  let canvasRect = new DOMRect();
+
+  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+
+  function createParticles() {
+    particles = [];
+    const centers = Array.from({ length: CLUSTER_COUNT }, () => ({
+      cx: 0.05 + Math.random() * 0.9,
+      cy: 0.05 + Math.random() * 0.9,
+    }));
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const { cx, cy } = centers[i % CLUSTER_COUNT];
+      const angle = Math.random() * Math.PI * 2;
+      const dist  = Math.random() * CLUSTER_SPREAD;
+      const rx = Math.max(0.01, Math.min(0.99, cx + Math.cos(angle) * dist));
+      const ry = Math.max(0.01, Math.min(0.99, cy + Math.sin(angle) * dist));
+      particles.push({
+        x: rx * canvas.width,
+        y: ry * canvas.height,
+        vx: 0, vy: 0,
+        rx, ry,
+        r: RADIUS_MIN + Math.random() * (RADIUS_MAX - RADIUS_MIN),
+      });
+    }
+  }
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    canvasRect = r;
+    canvas.width  = Math.round(r.width);
+    canvas.height = Math.round(r.height);
+    // Snap particles to their rest positions on resize
+    for (const p of particles) {
+      p.x = p.rx * canvas.width;
+      p.y = p.ry * canvas.height;
+      p.vx = 0; p.vy = 0;
+    }
+  }
+
+  function update() {
+    for (const p of particles) {
+      // Spring toward rest
+      p.vx += (p.rx * canvas.width  - p.x) * STIFFNESS;
+      p.vy += (p.ry * canvas.height - p.y) * STIFFNESS;
+
+      // Mouse repulsion
+      const dx   = p.x - mouseX;
+      const dy   = p.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS && dist > 0) {
+        const strength = (1 - dist / MOUSE_RADIUS) * REPEL_FORCE;
+        p.vx += (dx / dist) * strength;
+        p.vy += (dy / dist) * strength;
+      }
+
+      p.vx *= DAMPING;
+      p.vy *= DAMPING;
+      p.x  += p.vx;
+      p.y  += p.vy;
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = PARTICLE_COLOR;
+    ctx.globalAlpha = 0.65;
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function loop() {
+    update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  // Init after layout so getBoundingClientRect is valid
+  const r = canvas.getBoundingClientRect();
+  canvas.width  = Math.round(r.width);
+  canvas.height = Math.round(r.height);
+  canvasRect = r;
+  createParticles();
+  requestAnimationFrame(loop);
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('scroll', () => { canvasRect = canvas.getBoundingClientRect(); });
+
+  if (!window.matchMedia('(pointer: coarse)').matches) {
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX - canvasRect.left;
+      mouseY = e.clientY - canvasRect.top;
+    });
+  }
+</script>
+
+<style>
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(10px);
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  }
+</style>
